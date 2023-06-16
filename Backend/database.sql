@@ -2,16 +2,16 @@ CREATE DATABASE liquid_democracy_database;
 
 CREATE TABLE people(
     person_id SERIAL PRIMARY KEY,
-    wallet_address VARCHAR(100) NOT NULL,
+    wallet_address VARCHAR(100) NOT NULL UNIQUE,
     name VARCHAR(100) NOT NULL,
     surname VARCHAR(100) NOT NULL,
     birthday DATE NOT NULL,
     living_address VARCHAR(150) NOT NULL,
-    PESEL VARCHAR(20) NOT NULL
+    PESEL VARCHAR(20) NOT NULL UNIQUE
 );
 CREATE TABLE loglevels(
     loglevel_id SERIAL PRIMARY KEY,
-    loglevel VARCHAR(20) NOT NULL
+    loglevel VARCHAR(20) NOT NULL UNIQUE
 );
 CREATE TABLE logs(
     log_id SERIAL PRIMARY KEY,
@@ -24,7 +24,7 @@ CREATE TABLE logs(
 );
 CREATE TABLE actiontypes(
     actiontype_id SERIAL PRIMARY KEY,
-    actiontype VARCHAR(100) NOT NULL
+    actiontype VARCHAR(100) NOT NULL UNIQUE
 );
 CREATE TABLE transactions(
     transaction_id SERIAL PRIMARY KEY,

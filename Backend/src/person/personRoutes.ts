@@ -10,3 +10,26 @@ personRoutes.delete("/:id", controller.deletePerson);
 personRoutes.put("/:id", controller.updatePerson);
 
 export default personRoutes;
+
+/*
+POST
+{
+    "walletAddress": string, 
+    "name": string,
+    "surname": string,
+    "birthday": date,
+    "livingAddress": string,
+    "pesel": string
+}
+
+GET
+{
+    "person_id": int,
+    "walletAddress": string, 
+    "name": string,
+    "surname": string,
+    "birthday": date,
+    "livingAddress": string,
+    "pesel": string
+}
+*/

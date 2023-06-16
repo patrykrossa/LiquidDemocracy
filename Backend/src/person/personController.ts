@@ -45,7 +45,11 @@ export const getPersonById = async (req: any,res: any) => {
         pool.query(queries.getPersonById, [id], async (error, results) => {
             if (error) throw error;
 
-            res.status(200).json(results.rows[0]);
+            if (results.rows.length){
+                res.status(200).json(results.rows[0]);
+            }else{
+                res.status(400).json({message: "Person does not exist. (Non existent id)"})
+            }  
         })
     }catch(err: any){
         return res.status(400).json(err);

@@ -17,6 +17,7 @@ CREATE TABLE logs(
     log_id SERIAL PRIMARY KEY,
     description VARCHAR(1000) NOT NULL,
     loglevel_id INTEGER,
+    date TIMESTAMP,
     CONSTRAINT fk_loglevel FOREIGN KEY(loglevel_id) 
         REFERENCES loglevels(loglevel_id)
         ON DELETE SET NULL

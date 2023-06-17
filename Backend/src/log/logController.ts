@@ -19,6 +19,7 @@ export const postLog = async (req: any, res: any) => {
         return res.status(400).json(err);
     }
 }
+
 export const getLogs = async (req: any,res: any) => {
     try{
         pool.query(queries.getLogs, (error, results) => {
@@ -30,6 +31,7 @@ export const getLogs = async (req: any,res: any) => {
         return res.status(400).json(err);
     }
 }
+
 export const getLogById = async (req: any,res: any) => {
     try{
         const id = parseInt(req.params.id);
@@ -48,6 +50,7 @@ export const getLogById = async (req: any,res: any) => {
         return res.status(400).json(err);
     }
 }
+
 export const deleteLog = async (req: any,res: any) => {
     try{
         const id = parseInt(req.params.id);
@@ -67,6 +70,7 @@ export const deleteLog = async (req: any,res: any) => {
         return res.status(400).json(err);
     }
 }
+
 export const updateLog = async (req: any,res: any) => {
     try{
         const id = parseInt(req.params.id);

@@ -13,5 +13,17 @@ export default logRoutes;
 
 /*
     POST
-    
+{
+    "description": string,
+    "loglevelID": int,
+    "date": timestamp (yyyy-mm-dd hh:mm:ss)
+}
+    GET
+{
+    "log_id": int,
+    "description": string,
+    "loglevel_id": int,
+    "date": timestamp,
+    "loglevel": string
+}
 */

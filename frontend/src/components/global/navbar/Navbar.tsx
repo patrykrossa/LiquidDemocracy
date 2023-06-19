@@ -13,24 +13,19 @@ export const Navbar = () => {
 			p={{ base: '0', md: '24px 5vw', lg: '24px 10vw' }}
 			align='center'
 			justify='space-between'
-			zIndex='1000'>
+			zIndex='1000'
+			bg='white'>
 			<Link to='/'>
 				<Text fontSize='32px' fontWeight='800' color='primary'>
 					LiquidDemocracy
 				</Text>
 			</Link>
 			<Flex align='center' gap='16px'>
-				{/* TODO: claim on admin only */}
 				<Link to='admin'>
 					<Text fontSize='14px' _hover={{ opacity: '0.8' }}>
 						Admin panel
 					</Text>
 				</Link>
-				{/* <Link to='admin'>
-					<Text fontSize='14px' _hover={{ opacity: '0.8' }}>
-						Votings
-					</Text>
-				</Link> */}
 				<ConnectWallet />
 			</Flex>
 		</Flex>

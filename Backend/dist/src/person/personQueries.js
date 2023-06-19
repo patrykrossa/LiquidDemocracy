@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateUser = exports.deletePerson = exports.getPersonById = exports.getPeople = exports.checkPeselExists = exports.checkWalletAddressExists = exports.addPerson = void 0;
+exports.addPerson = "INSERT INTO people (wallet_address,name,surname,birthday,living_address,pesel) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *";
+exports.checkWalletAddressExists = "SELECT * from people WHERE wallet_address = $1";
+exports.checkPeselExists = "SELECT * from people WHERE pesel = $1";
+exports.getPeople = "Select * FROM people";
+exports.getPersonById = "Select * FROM people WHERE person_id = $1";
+exports.deletePerson = "Delete FROM people WHERE person_id = $1";
+exports.updateUser = "Update people SET wallet_address = $1, name = $2, surname = $3, birthday = $4, living_address = $5, pesel = $6 WHERE person_id = $7 RETURNING *";

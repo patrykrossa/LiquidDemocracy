@@ -21,9 +21,9 @@ export const Voting: FC<IVotingProps> = ({ name, description, id }) => {
 			flexDir='column'
 			gap='8px'>
 			<Text fontSize='18px'>{name}</Text>
-			<Text fontSize='14px' fontWeight='600' color='#696F8C'>
+			{/* <Text fontSize='14px' fontWeight='600' color='#696F8C'>
 				{description}
-			</Text>
+			</Text> */}
 			<Link to={`/votings/${id}`}>
 				<Tooltip label={!isLoggedIn && 'You need to connect your wallet'}>
 					<Button
@@ -32,7 +32,7 @@ export const Voting: FC<IVotingProps> = ({ name, description, id }) => {
 						_hover={{ opacity: '0.8' }}
 						w='100%'
 						isDisabled={!isLoggedIn}>
-						Vote
+						Details
 					</Button>
 				</Tooltip>
 			</Link>

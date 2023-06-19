@@ -1,4 +1,5 @@
 import { Button, Image, useToast } from '@chakra-ui/react';
+import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { useAccount } from '../../../providers/account/useAccount';
 import { trimAddress } from '../../../utils/trimAddress';
@@ -30,6 +31,7 @@ export const ConnectWallet = () => {
 
 	useEffect(() => {
 		const { ethereum } = window as any;
+		const provider = new ethers.providers.Web3Provider(ethereum);
 		const checkMetamaskAvailability = async () => {
 			if (!ethereum) {
 				alert('install metamask extension!!');

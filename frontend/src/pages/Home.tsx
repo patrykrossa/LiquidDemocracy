@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { abi } from '../abi';
 import { Voting } from '../components/pages/home/Voting';
+import { contractAddress } from '../contract';
 import { useAccount } from '../providers/account/useAccount';
 
 export const Home = () => {
@@ -15,16 +16,14 @@ export const Home = () => {
 	useEffect(() => {
 		setVotings([]);
 		const getVotings = async () => {
+			console.log('co');
 			setLoading(true);
 			const provider = new ethers.providers.Web3Provider(
 				(window as any).ethereum
 			);
 			const signer = provider.getSigner(address);
-			const contract = new ethers.Contract(
-				'0x43498dfF38012fE2fF2c407C40D5A256B61b1656',
-				abi,
-				signer
-			);
+			const contract = new ethers.Contract(contractAddress, abi, signer);
+			console.log(contract);
 			const votingLength = await contract.getVotingLength();
 			console.log(votingLength.toString());
 			const v = [];

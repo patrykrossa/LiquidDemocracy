@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { abi } from '../../../abi';
+import { contractAddress } from '../../../contract';
 import { useAccount } from '../../../providers/account/useAccount';
 
 export const GrantAdminForm = () => {
@@ -16,11 +17,7 @@ export const GrantAdminForm = () => {
 			(window as any).ethereum
 		);
 		const signer = provider.getSigner(address);
-		const contract = new ethers.Contract(
-			'0x43498dfF38012fE2fF2c407C40D5A256B61b1656',
-			abi,
-			signer
-		);
+		const contract = new ethers.Contract(contractAddress, abi, signer);
 		if (user) {
 			const res = await contract.giveAdmin(user);
 			console.log(res);

@@ -3,6 +3,7 @@ import { Button, Flex, Input, Textarea } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import React, { useState } from 'react';
 import { abi } from '../../../abi';
+import { contractAddress } from '../../../contract';
 import { useAccount } from '../../../providers/account/useAccount';
 
 export const CreateVotingForm = () => {
@@ -17,11 +18,7 @@ export const CreateVotingForm = () => {
 			(window as any).ethereum
 		);
 		const signer = provider.getSigner(address);
-		const contract = new ethers.Contract(
-			'0x43498dfF38012fE2fF2c407C40D5A256B61b1656',
-			abi,
-			signer
-		);
+		const contract = new ethers.Contract(contractAddress, abi, signer);
 		if (title !== '' && description !== '' && options[0] !== '') {
 			const res = await contract.createVoting(title, description, options);
 			console.log(res);

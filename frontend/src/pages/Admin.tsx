@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { abi } from '../abi';
 import { CreateVotingForm } from '../components/pages/admin/CreateVotingForm';
 import { GrantAdminForm } from '../components/pages/admin/GrantAdminForm';
+import { contractAddress } from '../contract';
 import { useAccount } from '../providers/account/useAccount';
 
 export const Admin = () => {
@@ -26,11 +27,7 @@ export const Admin = () => {
 				(window as any).ethereum
 			);
 			const signer = provider.getSigner(address);
-			const contract = new ethers.Contract(
-				'0x43498dfF38012fE2fF2c407C40D5A256B61b1656',
-				abi,
-				signer
-			);
+			const contract = new ethers.Contract(contractAddress, abi, signer);
 			const isAdmin = await contract.ifSenderAdmin();
 			if (!isAdmin) navigate('/');
 		};

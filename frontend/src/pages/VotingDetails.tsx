@@ -13,6 +13,7 @@ import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { abi } from '../abi';
+import { contractAddress } from '../contract';
 import { useAccount } from '../providers/account/useAccount';
 
 export const VotingDetails = () => {
@@ -25,6 +26,7 @@ export const VotingDetails = () => {
 	const [user, setUser] = useState();
 	const [people, setPeople] = useState<any>();
 	const [votingResults, setVotingResults] = useState<any>([]);
+	const [votingPower, setVotingPower] = useState();
 
 	const [votingView, setVotingView] = useState('option');
 
@@ -40,11 +42,7 @@ export const VotingDetails = () => {
 				(window as any).ethereum
 			);
 			const signer = provider.getSigner(address);
-			const contract = new ethers.Contract(
-				'0x43498dfF38012fE2fF2c407C40D5A256B61b1656',
-				abi,
-				signer
-			);
+			const contract = new ethers.Contract(contractAddress, abi, signer);
 			contract &&
 				contract.on('errorEvent', (data: any) => {
 					toast({
@@ -120,11 +118,7 @@ export const VotingDetails = () => {
 			(window as any).ethereum
 		);
 		const signer = provider.getSigner(address);
-		const contract = new ethers.Contract(
-			'0x43498dfF38012fE2fF2c407C40D5A256B61b1656',
-			abi,
-			signer
-		);
+		const contract = new ethers.Contract(contractAddress, abi, signer);
 		const v = await contract.getVoting(parseInt(id!) - 1);
 		const r = [] as any;
 		v[1].forEach(async (option: any, index: number) => {
@@ -141,8 +135,31 @@ export const VotingDetails = () => {
 			description: v[3],
 			options: v[1],
 		});
+		const votingPower = await contract.getUserVotingPower(
+			parseInt(id!) - 1,
+			address
+		);
+		console.log(votingPower.toString());
+		setVotingPower(votingPower.toString());
 		setLoading(false);
 	};
+
+	// useEffect(() => {
+	// 	const getVotingPower = async () => {
+	// 		const provider = new ethers.providers.Web3Provider(
+	// 			(window as any).ethereum
+	// 		);
+	// 		const signer = provider.getSigner(address);
+	// 		const contract = new ethers.Contract(contractAddress, abi, signer);
+	// 		const votingPower = await contract.getUserVotingPower(
+	// 			parseInt(id!) - 1,
+	// 			address
+	// 		);
+	// 		console.log(votingPower.toString());
+	// 		setVotingPower(votingPower.toString());
+	// 	};
+	// 	if (address !== '0x0000000000000000') getVotingPower();
+	// }, []);
 
 	useEffect(() => {
 		if (address !== '0x0000000000000000') getVoting();
@@ -173,11 +190,7 @@ export const VotingDetails = () => {
 			(window as any).ethereum
 		);
 		const signer = provider.getSigner(address);
-		const contract = new ethers.Contract(
-			'0x43498dfF38012fE2fF2c407C40D5A256B61b1656',
-			abi,
-			signer
-		);
+		const contract = new ethers.Contract(contractAddress, abi, signer);
 		const res = await contract.revoke(parseInt(id!) - 1);
 		console.log(res);
 	};
@@ -187,11 +200,7 @@ export const VotingDetails = () => {
 			(window as any).ethereum
 		);
 		const signer = provider.getSigner(address);
-		const contract = new ethers.Contract(
-			'0x43498dfF38012fE2fF2c407C40D5A256B61b1656',
-			abi,
-			signer
-		);
+		const contract = new ethers.Contract(contractAddress, abi, signer);
 		const res = await contract.voteForUser(user, parseInt(id!) - 1);
 		console.log(res);
 	};
@@ -201,11 +210,7 @@ export const VotingDetails = () => {
 			(window as any).ethereum
 		);
 		const signer = provider.getSigner(address);
-		const contract = new ethers.Contract(
-			'0x43498dfF38012fE2fF2c407C40D5A256B61b1656',
-			abi,
-			signer
-		);
+		const contract = new ethers.Contract(contractAddress, abi, signer);
 		if (option) {
 			const res = await contract.voteForOption(option, parseInt(id!) - 1);
 			console.log(res);
@@ -288,6 +293,9 @@ export const VotingDetails = () => {
 							</Flex>
 						)}
 					</Flex>
+					<Text fontSize='24px' fontWeight='600'>
+						Your voting power: {votingPower}
+					</Text>
 					<Flex flexDir='column' gap='8px'>
 						<Text fontSize='24px' fontWeight='600'>
 							Voting results
